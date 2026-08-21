@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>とうひょう</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="rotate-note" class="rotate-note">
+  <div class="rotate-ico">📱</div>
+  <p>たんまつを<br><b>よこむき</b>に してください</p>
+</div>
+
+<!-- ============ ホーム ============ -->
+<section id="screen-home" class="screen">
+  <div class="home-wrap">
+    <h1 class="app-title" aria-label="とうひょう">
+      <span class="t1">と</span><span class="t2">う</span><span class="t3">ひ</span><span class="t4">ょ</span><span class="t5">う</span>
+    </h1>
+    <div class="dot-row"><i></i><i></i><i></i><i></i><i></i></div>
+    <button class="btn btn-huge btn-accent" data-go="mode">
+      <svg class="btn-ico" viewBox="0 0 64 64" aria-hidden="true">
+        <rect x="19" y="3" width="26" height="23" rx="4" fill="#fff"/>
+        <path d="M26 14.5l4.5 4.5L39 10.5" fill="none" stroke="#ff8a3d" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="16" y="27" width="32" height="8" rx="4" fill="rgba(0,0,0,.22)"/>
+        <path d="M9 33h46a3 3 0 0 1 3 3v18a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4V36a3 3 0 0 1 3-3z" fill="#fff"/>
+      </svg>スタート
+    </button>
+    <button class="btn btn-ghost btn-quiet" data-go="settings">せってい</button>
+  </div>
+</section>
+
+<!-- ============ モードえらび ============ -->
+<section id="screen-mode" class="screen">
+  <button class="back-btn" data-go="home">← もどる</button>
+  <div class="home-wrap">
+    <h2 class="screen-title">どちらで つかいますか？</h2>
+    <div class="mode-grid">
+      <button class="mode-card mode-a" id="btn-mode-normal">
+        <span class="mode-ico"><svg viewBox="0 0 64 64" aria-hidden="true">
+          <rect x="19" y="3" width="26" height="23" rx="4" fill="#fff" stroke="#dd6618" stroke-width="3"/>
+          <path d="M26 14.5l4.5 4.5L39 10.5" fill="none" stroke="#3fbf6e" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="16" y="26" width="32" height="8" rx="4" fill="#dd6618"/>
+          <path d="M9 32h46a3 3 0 0 1 3 3v19a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4V35a3 3 0 0 1 3-3z" fill="#ff8a3d"/>
+        </svg></span>
+        <span class="mode-name">つうじょうモード</span>
+        <span class="mode-desc">みんなで とうひょうする</span>
+      </button>
+      <button class="mode-card mode-b" id="btn-mode-parent">
+        <span class="mode-ico"><svg viewBox="0 0 64 64" aria-hidden="true">
+          <path d="M6 20V11a5 5 0 0 1 5-5h9M44 6h9a5 5 0 0 1 5 5v9M58 44v9a5 5 0 0 1-5 5h-9M20 58h-9a5 5 0 0 1-5-5v-9"
+                fill="none" stroke="#1d76a5" stroke-width="5" stroke-linecap="round"/>
+          <rect x="19" y="19" width="11" height="11" rx="3" fill="#2f9bd0"/>
+          <rect x="34" y="19" width="11" height="11" rx="3" fill="#2f9bd0"/>
+          <rect x="19" y="34" width="11" height="11" rx="3" fill="#2f9bd0"/>
+          <rect x="34" y="34" width="5" height="5" rx="1.5" fill="#2f9bd0"/>
+          <rect x="40" y="40" width="5" height="5" rx="1.5" fill="#2f9bd0"/>
+        </svg></span>
+        <span class="mode-name">おやきモード</span>
+        <span class="mode-desc">QRを よみとって しゅうけい</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ せってい ============ -->
+<section id="screen-settings" class="screen scrollable">
+  <button class="back-btn" data-go="home">← もどる</button>
+  <div class="settings-wrap">
+    <h2 class="screen-title">せってい</h2>
+
+    <div class="card">
+      <h3 class="card-title"><span class="step-no n1">1</span>がぞう</h3>
+      <p class="card-hint">つかう まいすうを えらんで、しゃしんを とりこみます。</p>
+      <div class="row">
+        <span class="lbl">まいすう</span>
+        <div class="seg" id="seg-imgcount"></div>
+      </div>
+      <div id="img-slots" class="img-slots"></div>
+      <input type="file" id="file-input" accept="image/*" hidden>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title"><span class="step-no n2">2</span>とうひょうすう</h3>
+      <p class="card-hint">クラス ぜんいんぶんの ごうけい ひょうすうです。この かずだけ タッチすると じどうで おわります。</p>
+      <div class="row row-center">
+        <button class="step-btn" id="votes-minus">−</button>
+        <div class="step-value"><span id="votes-value">28</span><small>ひょう</small></div>
+        <button class="step-btn" id="votes-plus">＋</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title"><span class="step-no n3">3</span>けっかはっぴょうモード</h3>
+      <p class="card-hint">ONに すると、さいかい から じゅんばんに、せんせいの タップで 1つずつ はっぴょうします。OFFなら ぜんぶ いちどに でます。</p>
+      <div class="row">
+        <span class="lbl">けっかはっぴょうモード</span>
+        <button class="toggle" id="tg-reveal" role="switch"><span></span></button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3 class="card-title"><span class="step-no n4">4</span>こまかい せってい</h3>
+      <div class="row">
+        <span class="lbl">ばんごう（1〜5）を だす</span>
+        <button class="toggle" id="tg-number" role="switch"><span></span></button>
+      </div>
+      <div class="row">
+        <span class="lbl">こうかおん を ならす</span>
+        <button class="toggle" id="tg-sound" role="switch"><span></span></button>
+      </div>
+      <div class="row">
+        <span class="lbl">ながおしの ながさ</span>
+        <div class="seg" id="seg-hold"></div>
+      </div>
+      <div class="row">
+        <span class="lbl">とんとん の かいすう</span>
+        <div class="seg" id="seg-taps"></div>
+      </div>
+      <div class="row">
+        <span class="lbl">この たんまつの ばんごう</span>
+        <div class="devid" id="device-id">--</div>
+      </div>
+      <p class="card-hint">おやきで おなじ たんまつを 2かい よみこんだ ときに、けいこくを だすために つかいます。</p>
+    </div>
+
+    <div class="card danger">
+      <h3 class="card-title"><span class="step-no n5">!</span>データを けす</h3>
+      <button class="btn btn-danger" id="btn-reset">がぞうと せっていを すべて けす</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ とうひょう ============ -->
+<section id="screen-vote" class="screen">
+  <div class="vote-top">
+    <button class="abort-btn" id="btn-abort">✕</button>
+    <div class="remain"><span class="remain-lbl">あと</span><b id="remain-num">28</b><span class="remain-lbl">にん</span></div>
+    <div class="pips" id="remain-pips"></div>
+  </div>
+  <div class="vote-grid" id="vote-grid"></div>
+  <div class="vote-hint" id="vote-hint">しゃしんを <b>ながおし</b> か <b>とんとん</b> してね</div>
+</section>
+
+<div id="cast-overlay" class="cast-overlay">
+  <div class="cast-inner">
+    <div class="cast-frame"><img id="cast-img" alt=""></div>
+    <div class="cast-name" id="cast-name"></div>
+    <div class="cast-msg">はいりました！</div>
+  </div>
+</div>
+
+<!-- ============ とうひょう おわり ============ -->
+<section id="screen-votedone" class="screen">
+  <div class="home-wrap">
+    <div class="done-ico">🎉</div>
+    <h2 class="screen-title big">とうひょう おわり！</h2>
+    <button class="btn btn-huge btn-accent" id="btn-to-result">けっかを みる</button>
+  </div>
+</section>
+
+<!-- ============ けっか ============ -->
+<section id="screen-result" class="screen">
+  <button class="back-btn" data-go="home">← さいしょへ</button>
+  <h2 class="result-title" id="result-title">けっか はっぴょう</h2>
+  <div class="chart" id="chart"></div>
+  <div class="result-foot">
+    <button class="btn btn-accent" id="btn-reveal-next">はっぴょう する</button>
+    <button class="btn btn-primary" id="btn-to-qr">QRコードを だす</button>
+  </div>
+</section>
+
+<!-- ============ QRしゅつりょく ============ -->
+<section id="screen-qr" class="screen scrollable">
+  <button class="back-btn" id="btn-qr-back">← もどる</button>
+  <div class="qr-wrap">
+    <h2 class="screen-title">おやきに よみとらせて ください</h2>
+    <div class="qr-box"><div id="qr-canvas"></div></div>
+    <div class="qr-code-line">
+      <span class="qr-code-label">てにゅうりょく コード</span>
+      <code id="qr-text">—</code>
+    </div>
+    <div class="qr-summary" id="qr-summary"></div>
+    <button class="btn btn-ghost" data-go="home">さいしょへ もどる</button>
+  </div>
+</section>
+
+<!-- ============ おやき ============ -->
+<section id="screen-parent" class="screen scrollable">
+  <button class="back-btn" data-go="home">← もどる</button>
+  <div class="parent-wrap">
+    <h2 class="screen-title">おやきモード</h2>
+
+    <div class="scan-area">
+      <div class="scan-video-box" id="scan-video-box">
+        <video id="scan-video" playsinline muted></video>
+        <div class="scan-frame"></div>
+        <div class="scan-msg" id="scan-msg">「カメラを つかう」を おしてください</div>
+      </div>
+      <div class="scan-side">
+        <button class="btn btn-accent" id="btn-cam-start">カメラを つかう</button>
+        <button class="btn btn-ghost" id="btn-cam-stop">カメラを とめる</button>
+        <hr>
+        <span class="lbl">がぞうファイル から よむ</span>
+        <button class="btn btn-ghost" id="btn-pick-image">がぞうを えらぶ</button>
+        <input type="file" id="qr-file-input" accept="image/*" hidden>
+        <hr>
+        <span class="lbl">てにゅうりょく</span>
+        <input type="text" id="manual-input" class="text-input" placeholder="れい: 7K 3-0-5-1-2" autocapitalize="characters" autocomplete="off">
+        <button class="btn btn-ghost" id="btn-manual-add">ついか する</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="row row-between">
+        <h3 class="card-title plain">よみとった たんまつ：<span id="scan-count">0</span> だい</h3>
+        <button class="btn btn-danger btn-sm" id="btn-clear-scans">ぜんぶ けす</button>
+      </div>
+      <div id="scan-list" class="scan-list"></div>
+    </div>
+
+    <button class="btn btn-huge btn-accent" id="btn-parent-total">これで しゅうけい する</button>
+  </div>
+</section>
+
+<div id="confetti" class="confetti"></div>
+<div id="toast" class="toast"></div>
+
+<script src="vendor/qrcode.js"></script>
+<script src="vendor/jsQR.js"></script>
+<script src="js/store.js"></script>
+<script src="js/sound.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/qr.js"></script>
+<script src="js/result.js"></script>
+<script src="js/vote.js"></script>
+<script src="js/parent.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
